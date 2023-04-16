@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Crx Vouches</title>
+</head>
+
+<body>
+    <h1>Vouches:</h1>
+    <ul id="message-list">
+    </ul>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Make AJAX request to retrieve messages from server
+            $.ajax({
+                type: "GET",
+                url: "/messages",
+                success: function (messages) {
+                    // Display messages on HTML page
+                    var messageList = $('#message-list');
+                    messages.forEach(function (message) {
+                        var listItem = $('<li>').text(message.author + ': ' + message.content);
+                        messageList.append(listItem);
+                    });
+                },
+                error: function () {
+                    console.log('Failed to retrieve messages from server');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
